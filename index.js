@@ -48,24 +48,32 @@ app.post('/',(req,res)=>{
 
 
 app.post('/register', (req, res) => {
-    const result = dataservice.register(req.body.accno, req.body.name, req.body.password)
+    // const result = 
+    dataservice.register(req.body.acno, req.body.name, req.body.password)
     // console.log(res.send(result.message));
-    console.log(res.status(result.statusCode).json(result));
+    .then(result=>{
+        res.status(result.statusCode).json(result)
+
+    })
+    // res.status(200).send("success")
 
 })
 
 
 app.post('/login', (req, res) => {
     // console.log(req.body);
-    const result = dataservice.login(req,req.body.accno, req.body.password)
+    dataservice.login(req,req.body.acno, req.body.password)
     // console.log(res.send(result.message));
-    console.log(res.status(result.statusCode).json(result));
+    .then(result=>{
+        res.status(result.statusCode).json(result)
+
+    })
 })
 
 
 app.post('/deposit',authenticationMiddleware, (req, res) => {
     // console.log(req.body);
-    const result = dataservice.deposit(req.body.accno, req.body.password,req.body.amnt)
+    const result = dataservice.deposit(req.body.acno, req.body.password,req.body.amnt)
     // console.log(res.send(result.message));
     console.log(res.status(result.statusCode).json(result));
 })
@@ -73,7 +81,7 @@ app.post('/deposit',authenticationMiddleware, (req, res) => {
 
 app.post('/widraw',authenticationMiddleware, (req, res) => {
     // console.log(req.body);
-    const result = dataservice.widraw(req.body.accno, req.body.password,req.body.amnt)
+    const result = dataservice.widraw(req.body.acno, req.body.password,req.body.amnt)
     // console.log(res.send(result.message));
     console.log(res.status(result.statusCode).json(result));
 })
